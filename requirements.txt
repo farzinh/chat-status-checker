@@ -1,0 +1,13 @@
+# Chat Status Monitor Dependencies
+# Install with: pip install -r requirements.txt
+
+pyautogui>=0.9.54
+opencv-python>=4.8.0
+numpy>=1.24.0
+pytesseract>=0.3.10
+mss>=9.0.0
+Pillow>=10.0.0
+tzdata>=2023.3  # Timezone data for Windows
+
+# Note: You also need to install Tesseract OCR separately
+# Download from: https://github.com/UB-Mannheim/tesseract/wiki
