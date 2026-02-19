@@ -40,9 +40,9 @@ class ConfigWindow:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("Chat Status Monitor")
-        self.root.geometry("500x850")
+        self.root.geometry("520x600")
         self.root.resizable(True, True)
-        self.root.minsize(500, 850)
+        self.root.minsize(400, 400)  # Allow smaller minimum size
         
         self.monitor = None
         self.overlay = None
@@ -51,13 +51,58 @@ class ConfigWindow:
         self.last_email_time = None  # Track when last email was sent
         self.last_notified_status = None  # Track what status we last notified about
         
+        # Create scrollable container
+        self.setup_scrollable_frame()
         self.setup_ui()
         self.load_config()
+    
+    def setup_scrollable_frame(self):
+        """Create a scrollable frame for the entire UI"""
+        # Create canvas and scrollbar
+        self.canvas = tk.Canvas(self.root)
+        self.scrollbar = ttk.Scrollbar(self.root, orient="vertical", command=self.canvas.yview)
+        
+        # Create frame inside canvas
+        self.scrollable_frame = ttk.Frame(self.canvas)
+        
+        # Configure canvas scrolling
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        )
+        
+        self.canvas_frame = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        
+        # Make canvas frame expand with window width
+        self.canvas.bind('<Configure>', self._on_canvas_configure)
+        
+        # Pack scrollbar and canvas
+        self.scrollbar.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+        
+        # Bind mousewheel for scrolling
+        self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+        self.canvas.bind_all("<Button-4>", self._on_mousewheel)  # Linux scroll up
+        self.canvas.bind_all("<Button-5>", self._on_mousewheel)  # Linux scroll down
+    
+    def _on_canvas_configure(self, event):
+        """Resize the inner frame to match canvas width"""
+        self.canvas.itemconfig(self.canvas_frame, width=event.width)
+    
+    def _on_mousewheel(self, event):
+        """Handle mouse wheel scrolling"""
+        if event.num == 4:  # Linux scroll up
+            self.canvas.yview_scroll(-1, "units")
+        elif event.num == 5:  # Linux scroll down
+            self.canvas.yview_scroll(1, "units")
+        else:  # Windows
+            self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
         
     def setup_ui(self):
         """Setup the configuration UI"""
         # Main frame with padding
-        main_frame = ttk.Frame(self.root, padding="10")
+        main_frame = ttk.Frame(self.scrollable_frame, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
         
         # Title
