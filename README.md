@@ -138,14 +138,18 @@ python chat_monitor_gui.py
    - Default: `C:\Program Files\Tesseract-OCR\tesseract.exe`
    - Use the "Browse" button if installed elsewhere
 
-3. **Calibrate the status detection:**
+3. **Select chat list and Calibrate the status detection:**
+   - Put your chat app on any monitor
+   - Click "📐 Select Region"
+   - You'll see all your monitors in the overlay
+   - Drag a rectangle around the chat list (on whichever monitor it's on)
    - Click **"🎯 Calibrate"**
-   - When the blue overlay appears, **click directly on the status dot** (the colored circle) next to the person's name in your chat sidebar
+   - When the pointer changed to **+**, **click directly on the status dot** (the colored circle) next to the person's name in your chat sidebar
    - This teaches the app where to look for the status color
 
 4. **Test the detection:**
    - Click **"🧪 Test Detection"**
-   - You should see:
+   - You should see a Preview image with:
      - A **green rectangle** around the person's name
      - A **blue box** on their status dot
      - Status detected: GREEN, RED, YELLOW, or UNKNOWN
