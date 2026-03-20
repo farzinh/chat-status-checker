@@ -132,7 +132,7 @@ python chat_monitor_gui.py
 
 ### First-Time Setup
 
-1. **Enter the person's name** you want to monitor (e.g., "Arne Kaulfuß")
+1. **Enter the person's name** you want to monitor (e.g., "Farzin")
 
 2. **Set Tesseract path** (if not auto-detected):
    - Default: `C:\Program Files\Tesseract-OCR\tesseract.exe`
@@ -266,7 +266,7 @@ Settings are saved to `monitor_config.json` in the same folder as the app:
 
 ```json
 {
-  "target_person": "Arne Kaulfuß",
+  "target_person": "Farzin",
   "tesseract_path": "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
   "interval": "3",
   "email_enabled": true,
